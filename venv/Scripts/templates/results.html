@@ -1,0 +1,212 @@
+{% extends 'master.html' %}
+
+{% block access_control %}
+    <li class="sidebar-item">
+        <a class="sidebar-link" href="{{ url_for('users') }}">
+          <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Utilizadores</span>
+        </a>
+    </li>
+    <li class="sidebar-item">
+        <a class="sidebar-link" href="{{ url_for('contests') }}">
+          <i class="align-middle" data-feather="calendar"></i> <span class="align-middle">Concursos</span>
+        </a>
+    </li>
+    <li class="sidebar-item">
+        <a class="sidebar-link" href="{{ url_for('candidatures') }}">
+          <i class="align-middle" data-feather="edit"></i> <span class="align-middle">Candidaturas</span>
+        </a>
+    </li>
+    <li class="sidebar-item active">
+        <a class="sidebar-link" href="{{ url_for('results') }}">
+          <i class="align-middle" data-feather="award"></i> <span class="align-middle">Resultados</span>
+        </a>
+    </li>
+    <li class="sidebar-item">
+        <a class="sidebar-link" href="{{ url_for('results') }}">
+          <i class="align-middle" data-feather="send"></i> <span class="align-middle">Formulários</span>
+        </a>
+    </li>
+{% endblock %}
+
+{% block body %}
+    <div class="row mb-2 mb-xl-3">
+      <div class="col-auto d-none d-sm-block">
+        <h3>{{results|count}} Resultados</h3>
+      </div>
+    
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <label>Filtrar &nbsp </label>
+              <select id="button2" onchange="sortTable('tabela1',this)">
+                <option value="Filtrar" >Filtrar por...</option>
+                <option value="2">E-mail</option>
+                <option value="1">Concurso</option>
+                <option value="3">Pontuação</option>
+                <option value="6">Data</option>
+              </select>
+            <table class="table table-hover" id="tabela1"> 
+              <thead>
+                <tr>
+                  <th scope="col"><input type="checkbox" id=-1 name="Checkbox"></th>
+                  <th scope="col">Concurso</th>
+                  <th scope="col">Candidato</th>
+                  <th scope="col">Pontuação</th>
+                  <th scope="col">Validado</th>
+                  <th scope="col">Juri</th>
+                  <th scope="col">Data Criação</th>
+                  <th scope="col">Ações</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for result in results %}
+                  <tr>
+                    <td>
+                      <input type="checkbox" id={{result.user_id}} name="Checkbox">
+                    </td>
+                    <td>
+                      {{result.contest}}
+                    </td>
+                    <td>
+                      {{result.user.email}}
+                    </td>
+                    <td>
+                      {{result.score}}
+                    </td>
+                    <td>
+                      {{result.validated}}
+                    </td>
+                    <td>
+                      {{result.juri}}
+                    </td>
+                    <td>
+                      {{result.createdAt}}
+                    </td>
+                    <td>
+                      <a href="https://google.com/"><input name="viewButton" id="view{{result.user_id}}" type="image" src="static/img/view.png"></input></a>
+                      <a href="https://google.com/"><input name="editButton" id="edit{{result.user_id}}" type="image" src="static/img/edit.png"></input></a>
+                      <a href="https://google.com/"><input name="deleteButton" id="delete{{result.user_id}}" type="image" src="static/img/delete.png"></input></a>
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+              Launch modal
+          </button>
+            
+            <!-- Modal -->
+            
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-xl border border-primary" role="document">
+                <div class="modal-content">
+                  <div class="modal-header bg-primary">
+                    <h5 class="modal-title text-light" id="exampleModalLabel">Editar Resultados</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span class="text-light" aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <form>
+                      <div class="form-group">
+                          <label for="emailControl">User</label>
+                          <input type="email" class="form-control" name="email" id="emailControl" value="Teste@gmail.com">
+                      </div>
+                      <div class="form-group">
+                        <label for="contestControl">Contest</label>
+                        <input type="text" class="form-control" name="contest" id="contestControl" value="A51251">
+                      </div>
+                      
+                      <!--POR IF VALIDADO == TRUE, POE ESTAS OPÇÔES A COMEÇAR COM CHECKED-->
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" class="form-control" name="validation" type="checkbox" id="validationControl" value="option1" checked>
+                        <label class="form-check-label" for="validationControl">Validated?</label>
+          
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" class="form-control" name ="activation" type="checkbox" id="activationControl" value="option2" checked>
+                        <label class="form-check-label" for="activationControl">Activated?</label>
+                      </div>
+          
+                      <div class="container-sm">
+                        &nbsp;
+                      </div>
+          
+                      <div class="form-group">
+                        <label for="scoreControl">Pontuação</label>
+                        <input type="text" class="form-control" name="score" id="scoreControl" value="10">
+                      </div>
+          
+                      <div class="container-sm">
+                        <div class=row>
+                          <div class=col>
+                            <hr>
+                            Start Date
+                            <br>
+                            <input type="date" id="dateEntryControl" name="dateEntry" value="2000-05-06" disabled>
+          
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div class="container-sm">
+                        <div class=row>
+                          <div class=col>
+                            End Date
+                            <br>
+                            <input type="date" id="dateEndControl" name="dateEnd" value="2000-01-12" disabled>
+                          </div>
+                        </div>
+                      </div>
+          
+                      
+                    
+                  </div>
+                  <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Guardar Alterações</button>
+                  </div>
+                </form>
+                </div>
+              </div>
+            </div>
+           <div class="card-body">
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function sortTable(id,type) {
+        var tables, sort, i, x, y, tableSort, value;
+        value = type.value;
+        tables = document.getElementById(id);
+        sort= true;
+        while (sort) {
+          
+          sort = false;
+          tblrow = tables.rows;
+
+          for (i = 1; i < (tblrow.length - 1); i++) {
+            tableSort = false;
+            
+            x = tblrow[i].getElementsByTagName("td")[value];
+            y = tblrow[i + 1].getElementsByTagName("td")[value];
+            
+
+            if (x.innerHTML.toUpperCase() < y.innerHTML.toUpperCase()) {
+              tableSort = true;
+              break;
+            }
+          
+          }
+          if (tableSort) {
+            tblrow[i].parentNode.insertBefore(tblrow[i + 1], tblrow[i]);
+            sort = true;
+          }
+        }
+      }
+  </script>
+{% endblock body %}
+

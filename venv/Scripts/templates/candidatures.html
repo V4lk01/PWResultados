@@ -1,0 +1,68 @@
+{% extends 'master.html' %}
+
+{% block access_control %}
+    <li class="sidebar-item">
+        <a class="sidebar-link" href="{{ url_for('users') }}">
+          <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Utilizadores</span>
+        </a>
+    </li>
+    <li class="sidebar-item">
+        <a class="sidebar-link" href="{{ url_for('contests') }}">
+          <i class="align-middle" data-feather="calendar"></i> <span class="align-middle">Concursos</span>
+        </a>
+    </li>
+    <li class="sidebar-item active">
+        <a class="sidebar-link" href="{{ url_for('candidatures') }}">
+          <i class="align-middle" data-feather="edit"></i> <span class="align-middle">Candidaturas</span>
+        </a>
+    </li>
+    <li class="sidebar-item">
+        <a class="sidebar-link" href="{{ url_for('results') }}">
+          <i class="align-middle" data-feather="award"></i> <span class="align-middle">Resultados</span>
+        </a>
+    </li>
+    <li class="sidebar-item">
+        <a class="sidebar-link" href="{{ url_for('results') }}">
+          <i class="align-middle" data-feather="send"></i> <span class="align-middle">Formulários</span>
+        </a>
+    </li>
+{% endblock %}
+
+{% block body %}
+    <div class="row mb-2 mb-xl-3">
+      <div class="col-auto d-none d-sm-block">
+        <h3>Candidaturas</h3>
+      </div>
+    
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="card-title mb-0">{{ current_user.email }}</h5>
+
+            {% if current_user.has_role('admin') %}
+              <h5 class="card-title mb-0"> Is admin</h5>
+            {% endif %}
+
+            {% if current_user.has_role('juri') %}
+              <h5 class="card-title mb-0"> Is juri</h5>
+            {% endif %}
+
+            {% if current_user.has_role('user') %}
+              <h5 class="card-title mb-0"> Is user</h5>
+            {% endif %}
+
+            {% if not current_user.email %}
+              <h5 class="card-title mb-0"> Is guest</h5>
+            {% endif %}
+
+          </div>
+          <div class="card-body">
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <script>
+  </script>
+{% endblock body %}

@@ -1,0 +1,26 @@
+# Create dummy secrey key so we can use sessions
+SECRET_KEY = '123456790'
+
+# Create in-memory database
+DATABASE_FILE = 'chua.db'
+SQLALCHEMY_DATABASE_URI = 'sqlite:///' + DATABASE_FILE
+#SQLALCHEMY_DATABASE_URI = 'postgresql://user:password@localhost/chua'
+
+SECRET_KEY = "mysecret"
+SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+SECURITY_URL_PREFIX = "/"
+SECURITY_REGISTERABLE = True
+
+SECURITY_REGISTER_URL = "/register"
+SECURITY_LOGIN_URL = "/login"
+SECURITY_POST_LOGIN_VIEW = "/"
+SECURITY_LOGOUT_URL = "/logout"
+SECURITY_POST_LOGOUT_VIEW = "/"
+SECURITY_RESET_URL = "/reset"
+SECURITY_CHANGE_URL = "/change"
+SECURITY_USER_IDENTITY_ATTRIBUTES = ["email"]
+
+SECURITY_PASSWORD_SALT = None
+SECURITY_PASSWORD_HASH = "plaintext"
+
