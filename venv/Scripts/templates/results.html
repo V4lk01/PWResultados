@@ -22,14 +22,13 @@
         </a>
     </li>
     <li class="sidebar-item">
-        <a class="sidebar-link" href="{{ url_for('forms') }}">
+        <a class="sidebar-link" href="{{ url_for('results') }}">
           <i class="align-middle" data-feather="send"></i> <span class="align-middle">Formulários</span>
         </a>
     </li>
 {% endblock %}
 
 {% block body %}
-
     <div class="row mb-2 mb-xl-3">
       <div class="col-auto d-none d-sm-block">
         <h3>{{results|count}} Resultados</h3>
@@ -93,10 +92,12 @@
                 {% endfor %}
               </tbody>
             </table>
-            <button type="button" id="modalButton" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
               Launch modal
-            </button>
-                       
+          </button>
+            
+            <!-- Modal -->
+            
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog modal-xl border border-primary" role="document">
                 <div class="modal-content">
@@ -169,18 +170,6 @@
                 </div>
               </div>
             </div>
-
-            <script>
-              $('#modalButton').click(function () {
-                $('#exampleModal').modal({
-                    show: true,
-                    closeOnEscape: true
-                });
-              });
-            </script>
-            
-            <!-- Modal -->
- 
            <div class="card-body">
           </div>
           </div>

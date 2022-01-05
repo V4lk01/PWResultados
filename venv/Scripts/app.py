@@ -11,7 +11,7 @@ from flask_security import (
 )
 from flask_security.decorators import roles_required, roles_accepted
 
-from models import (Candidature, User, Role, roles_users_table, Result)
+from models import (Candidature, User, Role, roles_users_table, Result, Question, Contest)
 
 app = Flask(__name__)
 app.config.from_pyfile('config.py')
@@ -50,7 +50,9 @@ def results():
 
 @app.route("/forms")  
 def forms():
-    return render_template("forms.html")
+    questions = Question.query.all()
+    contests = Contest.query.all()
+    return render_template("forms.html", contests=contests, questions=questions)
 
 
 @app.route("/logout", methods=["GET"])
