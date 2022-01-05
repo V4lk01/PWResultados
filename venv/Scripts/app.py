@@ -54,6 +54,12 @@ def forms():
     contests = Contest.query.all()
     return render_template("forms.html", contests=contests, questions=questions)
 
+@app.route("/test/<contest_id>")  
+def test(contest_id):
+    questions = Question.query.all()
+    contests = Contest.query.all()
+    return render_template("test.html", contests=contests, questions=questions, contest_id=contest_id)
+
 
 @app.route("/logout", methods=["GET"])
 def logout():
