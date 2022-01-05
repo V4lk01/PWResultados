@@ -85,24 +85,21 @@
                       {{result.createdAt}}
                     </td>
                     <td>
-                      <a href="https://google.com/"><input name="viewButton" id="view{{result.user_id}}" type="image" src="static/img/view.png"></input></a>
-                      <a href="https://google.com/"><input name="editButton" id="edit{{result.user_id}}" type="image" src="static/img/edit.png"></input></a>
-                      <a href="https://google.com/"><input name="deleteButton" id="delete{{result.user_id}}" type="image" src="static/img/delete.png"></input></a>
+                      <input name="viewButton" id="view{{result.user_id}}" data-bs-toggle="modal" data-bs-target="#modal{{result.user_id}}" type="image" src="static/img/view.png"></input></a>
+                      <input name="editButton" id="edit{{result.user_id}}" data-bs-toggle="modal" data-bs-target="#modal{{result.user_id}}" type="image" src="static/img/edit.png"></input></a>
+                      <input name="deleteButton" id="delete{{result.user_id}}" type="image" src="static/img/delete.png"></input></a>
                     </td>
                   </tr>
                 {% endfor %}
               </tbody>
             </table>
-            <button type="button" id="modalButton" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-              Launch modal
-            </button>
-                       
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            {% for result in results %}
+            <div class="modal fade" id="modal{{result.user_id}}" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
               <div class="modal-dialog modal-xl border border-primary" role="document">
                 <div class="modal-content">
                   <div class="modal-header bg-primary">
-                    <h5 class="modal-title text-light" id="exampleModalLabel">Editar Resultados</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <h5 class="modal-title text-light" id="ModalLabel">Editar Resultados</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                       <span class="text-light" aria-hidden="true">&times;</span>
                     </button>
                   </div>
@@ -110,21 +107,21 @@
                     <form>
                       <div class="form-group">
                           <label for="emailControl">User</label>
-                          <input type="email" class="form-control" name="email" id="emailControl" value="Teste@gmail.com">
+                          <input type="email" class="form-control" name="{{result.user.email}}" id="emailControl{{result.user_id}}" value="{{result.user.email}}">
                       </div>
                       <div class="form-group">
                         <label for="contestControl">Contest</label>
-                        <input type="text" class="form-control" name="contest" id="contestControl" value="A51251">
+                        <input type="text" class="form-control" name="{{result.contest}}" id="contestControl{{result.user_id}}" value="{{result.contest}}">
                       </div>
                       
                       <!--POR IF VALIDADO == TRUE, POE ESTAS OPÇÔES A COMEÇAR COM CHECKED-->
                       <div class="form-check form-check-inline">
-                        <input class="form-check-input" class="form-control" name="validation" type="checkbox" id="validationControl" value="option1" checked>
+                        <input class="form-check-input" class="form-control" name="{{result.validated}}" type="checkbox" id="validationControl{{result.user_id}}" value="{{result.validated}}" checked>
                         <label class="form-check-label" for="validationControl">Validated?</label>
           
                       </div>
                       <div class="form-check form-check-inline">
-                        <input class="form-check-input" class="form-control" name ="activation" type="checkbox" id="activationControl" value="option2" checked>
+                        <input class="form-check-input" class="form-control" name ="activation" type="checkbox" id="activationControl{{result.user_id}}" value="option2" checked>
                         <label class="form-check-label" for="activationControl">Activated?</label>
                       </div>
           
@@ -134,7 +131,7 @@
           
                       <div class="form-group">
                         <label for="scoreControl">Pontuação</label>
-                        <input type="text" class="form-control" name="score" id="scoreControl" value="10">
+                        <input type="text" class="form-control" name="{{result.score}}" id="scoreControl{{result.user_id}}" value="{{result.score}}">
                       </div>
           
                       <div class="container-sm">
@@ -143,7 +140,7 @@
                             <hr>
                             Start Date
                             <br>
-                            <input type="date" id="dateEntryControl" name="dateEntry" value="2000-05-06" disabled>
+                            <input type="date" id="dateEntryControl{{result.user_id}}" name="{{result.createdAt}}" value="{{result.createdAt}}" disabled>
           
                           </div>
                         </div>
@@ -154,7 +151,7 @@
                           <div class=col>
                             End Date
                             <br>
-                            <input type="date" id="dateEndControl" name="dateEnd" value="2000-01-12" disabled>
+                            <input type="date" id="dateEndControl{{result.user_id}}" name="{{result.createdAt}}" value="{{result.createdAt}}" disabled>
                           </div>
                         </div>
                       </div>
@@ -170,16 +167,8 @@
               </div>
             </div>
 
-            <script>
-              $('#modalButton').click(function () {
-                $('#exampleModal').modal({
-                    show: true,
-                    closeOnEscape: true
-                });
-              });
-            </script>
-            
-            <!-- Modal -->
+         {% endfor %}
+           
  
            <div class="card-body">
           </div>
