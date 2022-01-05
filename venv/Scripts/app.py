@@ -48,6 +48,10 @@ def results():
     results = Result.query.all()
     return render_template("results.html", users=users, results=results)
 
+@app.route("/forms")  
+def forms():
+    return render_template("forms.html")
+
 
 @app.route("/logout", methods=["GET"])
 def logout():
