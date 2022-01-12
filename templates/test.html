@@ -1,0 +1,158 @@
+<style>
+   .miniSelect {
+    height: auto;
+    line-height: 12px;
+  }
+  .dynamicElementOpenAnswer{
+
+    
+      border-radius: 25px;
+      border: 2px solid #21ada6;
+      padding: 20px;
+      width: 50%;
+      height: 300px;
+      margin-bottom: 10px;
+  }
+  .dynamicElementMultipleChoice{
+
+    
+    border-radius: 25px;
+    border: 2px solid #21ada6;
+    padding: 20px;
+    width: 50%;
+    min-height: 300px;
+    overflow:hidden;
+    margin-bottom: 10px;
+}
+
+  .insertChoice{
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+</style>
+
+
+
+
+{% extends 'master.html' %}
+
+{% block access_control %}
+    <li class="sidebar-item">
+        <a class="sidebar-link" href="{{ url_for('users') }}">
+          <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Utilizadores</span>
+        </a>
+    </li>
+    <li class="sidebar-item">
+        <a class="sidebar-link" href="{{ url_for('contests') }}">
+          <i class="align-middle" data-feather="calendar"></i> <span class="align-middle">Concursos</span>
+        </a>
+    </li>
+    <li class="sidebar-item">
+        <a class="sidebar-link" href="{{ url_for('candidatures') }}">
+          <i class="align-middle" data-feather="edit"></i> <span class="align-middle">Candidaturas</span>
+        </a>
+    </li>
+    <li class="sidebar-item">
+        <a class="sidebar-link" href="{{ url_for('results') }}">
+          <i class="align-middle" data-feather="award"></i> <span class="align-middle">Resultados</span>
+        </a>
+    </li>
+    <li class="sidebar-item">
+        <a class="sidebar-link" href="{{ url_for('forms') }}">
+          <i class="align-middle" data-feather="send"></i> <span class="align-middle">Formulários</span>
+        </a>
+    </li>
+    
+{% endblock %}
+
+{% block body %}
+
+
+<div class="header">
+Concurso ID: {{contest_id}}
+
+</div>
+<div>
+<form>
+  <div class="form-group">
+    <label for="inputFile">{{questions[0].description}}</label>
+    <input type="file" class="form-control-file" id="inputFile">
+  </div>
+  <div class="formCreator">
+    <span>
+    <b>Tipo de Pergunta:</b>
+      <select class="miniSelect" aria-label="Pergunta a criar">
+        <option selected>...</option>
+        <option value="multipleChoice">Escolha Múltipla</option>
+        <option value="openAnswer">Pergunta Aberta</option>
+      </select>
+      <button name="generateQuestion" onclick="">
+        Inserir
+      </button>
+    </span>  
+  </div>
+  <div class="deleteQuestion">
+    <span>
+      <b>Apagar Pergunta:</b>
+        <select class="miniSelect" aria-label="Apagar Pergunta...">
+          <option selected>...</option>
+          <option value="1">Escolha Múltipla</option>
+          <option value="2">Pergunta Aberta</option>
+        </select>
+        <button name="generateQuestion" onclick="">
+          Apagar
+        </button>
+      </span>  
+  </div>
+  
+</div>
+<div class="dynamicElementOpenAnswer">
+  <label for="question1"><b>Pergunta 1</b></label>
+
+  <input type="text" class="form-control" id="question1" aria-describedby="scoreQuestion1" placeholder="Descreva a Questão">
+  <label for="scoreQuestion1"><b>Cotação</b></label>
+ 
+  <input type="text" class="form-control" id="scoreQuestion1" aria-describedby="questionDescription" placeholder="Cotação">
+  <label for="textoArea1">Detalhes da Questão</label>
+  <textarea class="form-control" id="textoArea1" rows="3" placeholder ="Detalhes Opcionais"></textarea>
+  
+</div>
+
+<div class="dynamicElementMultipleChoice">
+  <label for="question2"><b>Pergunta 1</b></label>
+  <input type="text" class="form-control" id="question2" aria-describedby="scoreQuestion1" placeholder="Descreva a Questão">
+  
+  <label for="scoreQuestion1"><b>Cotação</b></label>
+  <input type="text" class="form-control" id="scoreQuestion2" aria-describedby="questionDescription" placeholder="Cotação">
+  
+  <label for="textoArea1">Detalhes da Questão</label>
+  <textarea class="form-control" id="textoArea2" rows="3" placeholder ="Detalhes Opcionais"></textarea>
+
+  <label for="choice1"><b>Escolha 1</b></label>
+  <input type="text" class="form-control" id="question2choice1" aria-describedby="choice1" placeholder="Escolha 1">
+  <label for="choice1"><b>Escolha 2</b></label>
+  <input type="text" class="form-control" id="question2choice2" aria-describedby="choice2" placeholder="Escolha 2">
+  
+  <div class="insertChoice">
+    <button type="button" onclick="">Insira Escolha</button>
+  </div>
+
+  
+</div>
+
+</form>
+{% endblock body %}
+
+
+
+<script>
+
+  function generateQuestion(){
+
+
+
+  }
+
+
+</script>
+
