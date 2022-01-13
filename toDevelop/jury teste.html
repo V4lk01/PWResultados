@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+
+        <style>
+            .miniSelect {
+             height: auto;
+             line-height: 12px;
+           }
+           .dynamicElementOpenAnswer{
+         
+             
+               border-radius: 25px;
+               border: 2px solid #21ada6;
+               padding: 20px;
+               width: 50%;
+               height: 300px;
+               margin-bottom: 10px;
+           }
+           .dynamicElementMultipleChoice{
+         
+             
+             border-radius: 25px;
+             border: 2px solid #21ada6;
+             padding: 20px;
+             width: 50%;
+             min-height: 300px;
+             overflow:hidden;
+             margin-bottom: 10px;
+         }
+         
+           
+         
+           .fileInsertQuestion{
+             border-radius: 25px;
+             border: 2px solid #21ada6;
+             padding: 20px;
+             margin-top:10px;
+             margin-bottom:10px;
+             width: 50%;
+           }
+         
+           .submitForm{
+            
+             margin-top:10px;
+             margin-bottom:10px;
+             margin-left:40%;
+           }
+
+           textarea.answerText{
+            width: 90%;
+            resize: none;
+
+           }
+         
+         </style>
+    </head>
+    
+    <body>
+        
+        
+            
+           
+         
+         
+         <form>
+             
+             <div class="insertQuestionsBelow">
+                <div  class="fileInsertQuestion">
+                    <div class="fileQuestionDesc">
+                        <p>Descricao do ficheiro</p>
+                    </div>
+                    
+                    <img src="https://www.w3schools.com/images/w3schools_green.jpg"></img>
+                </div>
+                  
+                </div>
+                <div  class="dynamicElementOpenAnswer" id="openAns">
+                  <b>Pergunta 1</b>
+                  <div class="questionName">
+                    <p>Quais os seus melhores atributos ? </p>  
+                  </div>
+                  <div class="score">
+                      <p>Cotação maxima : 5 </p>
+                      <input type="text" id="score1" ></input>
+                      
+                  </div>
+                  <div class="questionDesc">
+                      <p>Descriçao da pergunta</p>
+                  </div>
+                  
+                  <div class="answer">
+                    <div>Descricao da resposta</div>
+                  </div>
+                  
+                </div>
+                <div  class="dynamicElementMultipleChoice" id="mulChoice">
+        
+                    <b>Pergunta 1</b>
+                    <div class="questionName">
+                      <p>Quantos anos de experiência tem  ? </p>  
+                    </div>
+                    <div class="score">
+                        <p>Cotação maxima : 2 </p>
+                        <input type="text" id="score2" ></input>
+                    </div>
+                    <div class="questionDesc">
+                        <p>Descriçao da pergunta</p>
+                    </div>
+                 
+                
+                  
+                  <div class="escolhas" id = "escolhas1">
+                    <input type="radio" id="mulChoice1Escolha1" name="escolha" value="1">
+                    1 ano<br>
+                    <input type="radio" id="mulChoice1Escolha2" name="escolha" value="2">
+                    3 ano<br>  
+                    <input type="radio" id="mulChoice1Escolha3" name="escolha" value="3">
+                    mais de 3 anos<br><br>
+                  </div> 
+                  
+                       
+                  
+                </div>
+                 
+         
+             </div>
+         
+             <div class="submitForm">
+               <input class="btn btn-primary" type="submit" value="Submeter Concurso">
+             </div>
+         
+         </form>
+         
+        
+         
+         
+         
+         
+        
+    </body>
+</html>
