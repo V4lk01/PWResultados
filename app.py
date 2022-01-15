@@ -61,6 +61,22 @@ def test(contest_id):
     answers = Answer.query.all()
     return render_template("test.html", contests=contests, questions=questions, contest_id=contest_id, answers = answers)
 
+@app.route("/questions", methods=["GET","POST"])
+def questions():
+    
+    
+    
+    if(request.method == "POST"):
+        contest_id = request.form.get("contest_id")
+        question = request.form.get("question")
+        
+        print(question)
+        
+        return "Success"
+    
+    return "ERRO"
+   
+
 
 @app.route("/logout", methods=["GET"])
 def logout():

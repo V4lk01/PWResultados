@@ -53,6 +53,17 @@
     color: darkcyan;
 
   }
+
+  .contestName{
+    margin-top:10px;
+
+  }
+
+  .contestDate{
+
+    margin-top:10px;
+    margin-bottom:10px;
+  }
 </style>
 
 
@@ -113,8 +124,21 @@ Concurso ID: {{contest_id}}
   </div>
 
 
-<form>
-    
+<form action="/questions" method = "POST" class="form">
+    <input type="hidden" name="contest_id" value="{{contest_id}}">
+
+    <div class="contestName">
+      <input type="text" name="contestName" id="contestName" placeholder="Concurso Nome">
+    </div>
+
+    <div class="contestDate">
+      <label for="contestDateStart">Data Inicio</label>
+      <input type="date" name="contestDateStart" id="contestDateStart" placeholder="">
+      <label for="contestDateStart">Data Fim</label>
+      <input type="date" name="contestDateEnd" id="contestDateEnd" placeholder="">
+    </div>
+
+
     <div class="insertQuestionsBelow">
 
     </div>
@@ -140,12 +164,12 @@ Concurso ID: {{contest_id}}
        div.innerHTML = `<div class="dynamicElementOpenAnswer" id="openAns${counter}">
         <label for="question1"><b>Pergunta ${counter}</b></label>
         <span class="closeButton">X</span>
-        <input type="text" class="form-control" id="question${counter}" aria-describedby="scoreQuestion1" placeholder="Descreva a Questão">
+        <input type="text" class="form-control" id="question${counter}" name="question${counter}" aria-describedby="scoreQuestion1" placeholder="Descreva a Questão">
         <label for="scoreQuestion1"><b>Cotação</b></label>
        
-        <input type="text" class="form-control" id="scoreQuestion${counter}" aria-describedby="questionDescription" placeholder="Cotação">
+        <input type="text" class="form-control" id="scoreQuestion${counter}" name="scoreQuestion${counter}" aria-describedby="questionDescription" placeholder="Cotação">
         <label for="textoArea1">Detalhes da Questão</label>
-        <textarea class="form-control" id="textoArea${counter}" rows="3" placeholder ="Detalhes Opcionais"></textarea>
+        <textarea class="form-control" id="textoArea${counter}" name="textoArea${counter}" rows="3" placeholder ="Detalhes Opcionais"></textarea>
         
         
       </div>`;
@@ -157,18 +181,18 @@ Concurso ID: {{contest_id}}
       div.innerHTML = `<div class="dynamicElementMultipleChoice" id="mulChoice${counter}">
         <label for="question2"><b>Pergunta ${counter}</b></label>
         <span class="closeButton">X</span>
-        <input type="text" class="form-control" id="question${counter}" aria-describedby="scoreQuestion1" placeholder="Descreva a Questão">
+        <input type="text" class="form-control" id="question${counter}" name="question${counter}"aria-describedby="scoreQuestion1" placeholder="Descreva a Questão">
         
         <label for="scoreQuestion1"><b>Cotação</b></label>
-        <input type="text" class="form-control" id="scoreQuestion${counter}" aria-describedby="questionDescription" placeholder="Cotação">
+        <input type="text" class="form-control" id="scoreQuestion${counter}" name="scoreQuestion${counter}" aria-describedby="questionDescription" placeholder="Cotação">
         
         <label for="textoArea1">Detalhes da Questão</label>
-        <textarea class="form-control" id="textoArea${counter}" rows="3" placeholder ="Detalhes Opcionais"></textarea>
-        <div class="escolhas" id = "escolhas">
+        <textarea class="form-control" id="textoArea${counter}" name="textoArea${counter}" rows="3" placeholder ="Detalhes Opcionais"></textarea>
+        <div class="escolhas" id = "escolhas${counter}">
         <label for="choice1"><b>Escolha 1</b></label>
-        <input type="text" class="form-control" id="choice${counter}" aria-describedby="choice1" placeholder="Escolha 1">
+        <input type="text" class="form-control choice" name="choice${counter}" aria-describedby="choice1" placeholder="Escolha 1">
         <label for="choice1"><b>Escolha 2</b></label>
-        <input type="text" class="form-control" id="choice${counter}" aria-describedby="choice2" placeholder="Escolha 2">
+        <input type="text" class="form-control choice"  name="choice${counter}" aria-describedby="choice2" placeholder="Escolha 2">
         </div>
         <div class="insertChoice">
           <button type="button" onclick="insertChoice()">Insira Escolha</button>
@@ -180,9 +204,9 @@ Concurso ID: {{contest_id}}
       counter++;
       div.innerHTML = `<div class="fileInsertQuestion" id="fileAnswer${counter}">
         <span class="closeButton">X</span>
-        <input type="text" class="form-control" id="fileInsertQuestion${counter}" aria-describedby="questionDescription" placeholder="Ficheiro a Atribuir">
+        <input type="text" class="form-control" id="fileInsertQuestion${counter}" name="fileInsertQuestion${counter}" aria-describedby="questionDescription" placeholder="Ficheiro a Atribuir">
         <br>
-        <input type="file" class="form-control-file" id="inputFile${counter}">
+        <input type="file" class="form-control-file" id="inputFile${counter}" name="inputFile${counter}">
     </div>`;
      document.querySelector('div.insertQuestionsBelow').appendChild(div);
     }
@@ -200,17 +224,31 @@ Concurso ID: {{contest_id}}
  
 
   function insertChoice(){ // POR DESENVOLVER
+/*
+1. Selecionar o elemento escolhas (document.querySelectorAll(.escolhas))
+2. Criar a label e o input
+3. Adicionar um event listener a cada butão de cada questão
+4. ou criar elemento por javaScript e dar append desse elemento na questão
 
-    var escolhaArray = document.querySelectorAll("[id^='mulChoice']");
+
+*/
+    //var escolhaArray = document.querySelectorAll(".escolhas");
     //var count = document.getElementById("mulChoice").querySelectorAll("div.escolhas label").length;// ADICIONAR DINAMISMO ;
-    var escolha = document.createElement('div');
-    
-    
-    
-     
-        escolha.innerHTML = `<div><label for="choice`+count+`"><b>Escolha`+count+`</b></label>
-        <input type="text" class="form-control" id="question2choice`+count+`" aria-describedby="choice" placeholder="Escolha `+count+`" </input></div>`;
-        document.querySelector('div.escolhas').appendChild(escolha);
+    //var escolha = document.createElement('div');
+    var input = document.createElement('input');
+    input.classList.add('choice');
+    input.classList.add('form-control');
+    var label = document.createElement('label');
+    label.innerHTML = "<b>Escolha</b>";
+
+    var choices = document.querySelectorAll('.escolhas')
+    choices.forEach(choice => {
+      choice.appendChild(label);
+      choice.appendChild(input);
+    })
+   
+  
+        //document.querySelector("").appendChild(escolha);
         
       
    
