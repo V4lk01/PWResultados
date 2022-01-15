@@ -190,9 +190,9 @@ Concurso ID: {{contest_id}}
         <textarea class="form-control" id="textoArea${counter}" name="textoArea${counter}" rows="3" placeholder ="Detalhes Opcionais"></textarea>
         <div class="escolhas" id = "escolhas${counter}">
         <label for="choice1"><b>Escolha 1</b></label>
-        <input type="text" class="form-control choice" name="choice${counter}" aria-describedby="choice1" placeholder="Escolha 1">
+        <input type="text" class="form-control choice" name="mulchoiceOption${counter}" aria-describedby="choice1" placeholder="Escolha 1">
         <label for="choice1"><b>Escolha 2</b></label>
-        <input type="text" class="form-control choice"  name="choice${counter}" aria-describedby="choice2" placeholder="Escolha 2">
+        <input type="text" class="form-control choice"  name="mulchoiceOption${counter}" aria-describedby="choice2" placeholder="Escolha 2">
         </div>
         <div class="insertChoice">
           <button type="button" onclick="insertChoice()">Insira Escolha</button>
@@ -241,6 +241,9 @@ Concurso ID: {{contest_id}}
     var label = document.createElement('label');
     label.innerHTML = "<b>Escolha</b>";
 
+    
+   
+    
     var choices = document.querySelectorAll('.escolhas')
     choices.forEach(choice => {
       choice.appendChild(label);
