@@ -46,7 +46,8 @@ def candidatures():
 def results():
     users = User.query.all()
     results = Result.query.all()
-    return render_template("results.html", users=users, results=results)
+    contests = Contest.query.all()
+    return render_template("results.html", users=users, results=results, contests=contests)
 
 @app.route("/forms")  
 def forms():
