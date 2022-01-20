@@ -2,6 +2,10 @@ import os
 from flask import Flask, render_template, redirect, url_for, flash, abort, request
 from flask_sqlalchemy import SQLAlchemy
 
+
+from random import seed
+from random import randint
+
 from flask_security import (
     current_user,
     Security,
@@ -59,18 +63,47 @@ def test(contest_id):
     questions = Question.query.all()
     contests = Contest.query.all()
     answers = Answer.query.all()
-    return render_template("test.html", contests=contests, questions=questions, contest_id=contest_id, answers = answers)
+    randomNumber = 0
+    seed(1)
+    randomNumber = randint(0,9999)
+
+
+
+    return render_template("test.html", contests=contests, questions=questions, contest_id=contest_id, answers = answers, randomNumber = randomNumber)
+
+@app.route("/createContest")
+def createContest():
+    questions = Question.query.all()
+    contests = Contest.query.all()
+    answers = Answer.query.all()
+    randomNumber = 0
+    
+    randomNumber = randint(0,9999)
+
+
+
+    return render_template("createContest.html", contests=contests, questions=questions,answers = answers, randomNumber = randomNumber)
 
 @app.route("/questions", methods=["GET","POST"])
 def questions():
     
-    
+   
+
+
     
     if(request.method == "POST"):
         contest_id = request.form.get("contest_id")
+        contestCode = request.form.get("contestCode")
+        contestName = request.form.get("contestName")
+        contestArea = request.form.get("contestArea")
+        contestDateStart = request.form.get("contestDateStart")
+        contestDateEnd = request.form.get("contestDateEnd")
         question = request.form.get("question")
-        
-        print(question)
+        for key, val in request.form.items():
+            if(key.startswith("mulchoice")):
+                print(key)
+                print(val)
+        #print(question)
         
         return "Success"
     

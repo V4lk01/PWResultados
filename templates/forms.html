@@ -78,11 +78,17 @@
                 {% endfor %}
               </tbody>
             </table>
+            
+            <div class="joinConcurso">
+              <a button href="{{ url_for('createContest')}}" type="button" >Criar novo concurso</button>
+            </div>
+
            <div class="card-body">
           </div>
           </div>
         </div>
       </div>
+      
     </div>
 
 {% endblock body %}

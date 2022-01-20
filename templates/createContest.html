@@ -186,7 +186,6 @@ Concurso ID: {{randomNumber}}
 
      else if(selectedOption.options[selectedOption.selectedIndex].value == "multipleChoice"){ // FALTA POR ESCOLHA COM COUNTER
       counter++;
-      mulChoiceCounter++;
       div.innerHTML = `<div class="dynamicElementMultipleChoice" id="mulChoice${counter}">
         <label for="question2"><b>Pergunta ${counter}</b></label>
         <span class="closeButton">X</span>
@@ -201,11 +200,12 @@ Concurso ID: {{randomNumber}}
         <label for="choice1"><b>Escolha</b></label>
         <input type="text" class="form-control choice" name="mulchoice${counter}Option${choiceCounter}" aria-describedby="choice1" placeholder="Escolha" required>
         <label for="choice1"><b>Escolha</b></label>
-        <input type="text" class="form-control choice"  name="mulchoice${counter}Option${choiceCounter}" aria-describedby="choice2" placeholder="Escolha" required>
+        <input type="text" class="form-control choice"  name="mulchoice${counter}Option${choiceCounter+1}" aria-describedby="choice2" placeholder="Escolha" required>
         </div>
         <div class="insertChoice">
           <button type="button" class="addChoice" onclick="insertChoice()">Insira Escolha</button>
         </div>`;
+        choiceCounter++;
      document.querySelector('div.insertQuestionsBelow').appendChild(div);
     }
 
@@ -250,8 +250,9 @@ Concurso ID: {{randomNumber}}
     var label = document.createElement('label');
     label.innerHTML = "<b>Escolha</b>";
     input.required = true;
-    input.setAttribute("name", "mulchoice${choiceCounter}Option${counter}");
-
+    choiceCounter++;
+    input.setAttribute("name",`mulChoice${counter}Option${choiceCounter}`);
+    input.setAttribute("placeholder","Escolha");
   
     var choices = document.querySelectorAll('.escolhas')
     choices.forEach(choice => {
