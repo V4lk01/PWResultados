@@ -124,7 +124,7 @@ Concurso ID: {{randomNumber}}
   </div>
 
 
-<form action="/questions" method = "POST" class="form">
+<form action="/concursoSubmit" method = "POST" class="form">
     <input type="hidden" name="contest_id" value="{{randomNumber}}">
 
     <div class="contestInputs">
@@ -170,6 +170,7 @@ Concurso ID: {{randomNumber}}
      if(selectedOption.options[selectedOption.selectedIndex].value == "openAnswer"){
        counter++;
        div.innerHTML = `<div class="dynamicElementOpenAnswer" id="openAns${counter}">
+        <input type="hidden" name="typeOpen${counter}" value="typeOpen${counter}">
         <label for="question1"><b>Pergunta ${counter}</b></label>
         <span class="closeButton">X</span>
         <input type="text" class="form-control" id="question${counter}" name="question${counter}" aria-describedby="scoreQuestion1" placeholder="Descreva a Questão" required>
@@ -187,6 +188,7 @@ Concurso ID: {{randomNumber}}
      else if(selectedOption.options[selectedOption.selectedIndex].value == "multipleChoice"){ // FALTA POR ESCOLHA COM COUNTER
       counter++;
       div.innerHTML = `<div class="dynamicElementMultipleChoice" id="mulChoice${counter}">
+        <input type="hidden" name="typeMul${counter}" value="typeMul${counter}>
         <label for="question2"><b>Pergunta ${counter}</b></label>
         <span class="closeButton">X</span>
         <input type="text" class="form-control" id="question${counter}" name="question${counter}"aria-describedby="scoreQuestion1" placeholder="Descreva a Questão" required>
@@ -212,6 +214,7 @@ Concurso ID: {{randomNumber}}
     else if(selectedOption.options[selectedOption.selectedIndex].value == "fileAnswer"){
       counter++;
       div.innerHTML = `<div class="fileInsertQuestion" id="fileAnswer${counter}">
+        <input type="hidden" name="typeFile${counter}" value="typeFile${counter}>
         <span class="closeButton">X</span>
         <input type="text" class="form-control" id="fileInsertQuestion${counter}" name="fileInsertQuestion${counter}" aria-describedby="questionDescription" placeholder="Ficheiro a Atribuir">
         <br>
@@ -251,7 +254,7 @@ Concurso ID: {{randomNumber}}
     label.innerHTML = "<b>Escolha</b>";
     input.required = true;
     choiceCounter++;
-    input.setAttribute("name",`mulChoice${counter}Option${choiceCounter}`);
+    input.setAttribute("name",`mulchoice${counter}Option${choiceCounter}`);
     input.setAttribute("placeholder","Escolha");
   
     var choices = document.querySelectorAll('.escolhas')
