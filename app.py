@@ -1,4 +1,6 @@
 import os
+import json
+from pickle import NONE
 from flask import Flask, render_template, redirect, url_for, flash, abort, request
 from flask_sqlalchemy import SQLAlchemy
 
@@ -84,13 +86,9 @@ def createContest():
 
     return render_template("createContest.html", contests=contests, questions=questions,answers = answers, randomNumber = randomNumber)
 
-@app.route("/questions", methods=["GET","POST"])
-def questions():
-    
-   
+@app.route("/contestSubmit", methods=["GET","POST"])
+def contestSubmit():
 
-
-    
     if(request.method == "POST"):
         contest_id = request.form.get("contest_id")
         contestCode = request.form.get("contestCode")
@@ -98,13 +96,54 @@ def questions():
         contestArea = request.form.get("contestArea")
         contestDateStart = request.form.get("contestDateStart")
         contestDateEnd = request.form.get("contestDateEnd")
-        question = request.form.get("question")
-        for key, val in request.form.items():
-            if(key.startswith("mulchoice")):
-                print(key)
-                print(val)
-        #print(question)
+        juri = 1
         
+       
+
+       
+        
+        #contestAlldata = Contest(contest_code=contest_id,name=contestName,area=contestArea,active=1,questions = questions, dateStart =contestDateStart, dateEnd =contestDateEnd, juri=1)
+        contadorQuestion = 1
+        
+        type = ""
+        description = ""
+        score = 0
+        questionsData={}
+
+        for key, val in request.form.items():
+            if(key.startswith("question")):
+                if (request.form.get("typeOpen"+contadorQuestion) == "typeOpen"+contadorQuestion):
+                    type="typeOpen"
+                elif (request.form.get("typeMul"+contadorQuestion) == "typeMul"+contadorQuestion):
+                    type="typeMul"
+                elif (request.form.get("typeFile"+contadorQuestion) == "typeFile"+contadorQuestion):
+                    type="typeFile"
+                options ={}
+                scores={}
+                contadorOption = 1
+                while(request.form.get("mulchoice"+contadorQuestion+"Option"+contadorOption) is not None):
+                    options["choice"+contadorOption] = request.form.get("mulchoice"+contadorQuestion+"Option"+contadorOption)
+                    contadorOption+=1
+                    
+
+
+
+                questionsData[contadorQuestion] ={
+                    "contest_id": request.form.get("contest_id"),
+                    "contest" : request.form.get("contestName"),
+                    "type": type,
+                    "description": request.form.get("textoArea" + contadorQuestion),
+                    "options": options,
+                    "scores": {
+                        score: float(request.form.get("scoreQuestion"+contadorQuestion))
+                    },
+                    "order": contadorQuestion
+                }
+                contadorQuestion = contadorQuestion + 1 
+        #print(question)
+        contestData = Contest(code=contestCode,name=contestName,area=contestArea,active=bool(1),questions=questionsData,dateStart=contestDateStart,dateEnd=contestDateEnd,juri=1)
+        db.session.add(contestData)
+        db.session.commit()
         return "Success"
     
     return "ERRO"
